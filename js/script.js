@@ -71,6 +71,11 @@ function initInteractiveButtons() {
         
         // Add heart animation
         createFloatingHearts(20);
+        
+        // Show gift link after a short delay
+        setTimeout(() => {
+            showGiftLink();
+        }, 1500);
     });
     
     // No Button Handler (playful)
@@ -107,6 +112,129 @@ function initInteractiveButtons() {
         }
     });
 }
+
+// ============================================
+// Show Gift Link
+// ============================================
+function showGiftLink() {
+    const responseMessage = document.getElementById('responseMessage');
+    if (!responseMessage) return;
+    
+    // Create gift container
+    const giftContainer = document.createElement('div');
+    giftContainer.className = 'gift-container';
+    giftContainer.style.cssText = `
+        margin-top: 30px;
+        padding: 30px;
+        background: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(255, 204, 213, 0.9) 100%);
+        border-radius: 20px;
+        box-shadow: 0 10px 40px rgba(194, 24, 91, 0.3);
+        text-align: center;
+        animation: giftReveal 0.8s ease-out;
+        border: 3px solid rgba(194, 24, 91, 0.3);
+        position: relative;
+        overflow: hidden;
+    `;
+    
+    // Add gift emoji and title
+    const giftTitle = document.createElement('h3');
+    giftTitle.innerHTML = '🎁 A Special Gift For You 💝';
+    giftTitle.style.cssText = `
+        font-family: 'Playfair Display', serif;
+        font-size: 1.8rem;
+        color: #c2185b;
+        margin-bottom: 20px;
+        text-shadow: 0 2px 10px rgba(255, 182, 193, 0.5);
+    `;
+    
+    // Add gift message
+    const giftMessage = document.createElement('p');
+    giftMessage.innerHTML = 'I have something special for you, my love ✨';
+    giftMessage.style.cssText = `
+        font-size: 1.1rem;
+        color: #2c2c2c;
+        margin-bottom: 25px;
+        font-style: italic;
+    `;
+    
+    // Create the link button
+    const giftLink = document.createElement('a');
+    giftLink.href = 'https://nitinsunilchaube-arch.github.io/';
+    giftLink.target = '_blank';
+    giftLink.rel = 'noopener noreferrer';
+    giftLink.textContent = 'Open Your Gift 🎀';
+    giftLink.style.cssText = `
+        display: inline-block;
+        padding: 15px 40px;
+        background: linear-gradient(135deg, #c2185b, #ffb6c1);
+        color: white;
+        text-decoration: none;
+        border-radius: 50px;
+        font-size: 1.2rem;
+        font-weight: 600;
+        box-shadow: 0 5px 20px rgba(194, 24, 91, 0.4);
+        transition: all 0.3s ease;
+        cursor: pointer;
+        font-family: 'Montserrat', sans-serif;
+    `;
+    
+    // Add hover effect
+    giftLink.addEventListener('mouseenter', function() {
+        this.style.transform = 'scale(1.1)';
+        this.style.boxShadow = '0 8px 30px rgba(194, 24, 91, 0.6)';
+    });
+    
+    giftLink.addEventListener('mouseleave', function() {
+        this.style.transform = 'scale(1)';
+        this.style.boxShadow = '0 5px 20px rgba(194, 24, 91, 0.4)';
+    });
+    
+    // Add click effect
+    giftLink.addEventListener('click', function() {
+        createFloatingHearts(10);
+        createSparkles(window.innerWidth / 2, window.innerHeight / 2);
+    });
+    
+    // Assemble the gift container
+    giftContainer.appendChild(giftTitle);
+    giftContainer.appendChild(giftMessage);
+    giftContainer.appendChild(giftLink);
+    
+    // Add to response message area
+    responseMessage.appendChild(giftContainer);
+    
+    // Add sparkles around the gift
+    setTimeout(() => {
+        const rect = giftContainer.getBoundingClientRect();
+        for (let i = 0; i < 15; i++) {
+            setTimeout(() => {
+                createSparkles(
+                    rect.left + Math.random() * rect.width,
+                    rect.top + Math.random() * rect.height
+                );
+            }, i * 100);
+        }
+    }, 500);
+}
+
+// Add CSS animation for gift reveal
+const giftAnimationStyle = document.createElement('style');
+giftAnimationStyle.textContent = `
+    @keyframes giftReveal {
+        0% {
+            opacity: 0;
+            transform: translateY(30px) scale(0.8);
+        }
+        50% {
+            transform: translateY(-10px) scale(1.05);
+        }
+        100% {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+        }
+    }
+`;
+document.head.appendChild(giftAnimationStyle);
 
 // ============================================
 // Enhanced Confetti Effect
