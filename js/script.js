@@ -159,7 +159,7 @@ function showGiftLink() {
     
     // Create the link button
     const giftLink = document.createElement('a');
-    giftLink.href = 'https://nitinsunilchaube-arch.github.io/';
+    giftLink.href = 'https://nitinsunilchaube-arch.github.io/blogs';
     giftLink.target = '_blank';
     giftLink.rel = 'noopener noreferrer';
     giftLink.textContent = 'Open Your Gift 🎀';
